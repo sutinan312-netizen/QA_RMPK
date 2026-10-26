@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#f3f5fb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#070912" media="(prefers-color-scheme: dark)">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="QA RM&amp;PK">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%9A%80%3C/text%3E%3C/svg%3E">
+<title>QA RM&amp;PK</title>
+<style>
+:root{--bg:#f3f5fb;--fg:#12162b;--muted:#6a7090;--card:rgba(255,255,255,.66);--card2:rgba(255,255,255,.36);--line:rgba(20,24,60,.09);--hi:rgba(255,255,255,.95);--sh:rgba(30,40,100,.22);--solid:rgba(255,255,255,.93);--a:#3b82f6;--b:#8b5cf6;--c:#f472b6;--bl:.5;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#070912;--fg:#eef0ff;--muted:#8d93b6;--card:rgba(255,255,255,.075);--card2:rgba(255,255,255,.025);--line:rgba(255,255,255,.1);--hi:rgba(255,255,255,.2);--sh:rgba(0,0,0,.65);--solid:rgba(24,27,44,.94);--a:#38bdf8;--b:#8b7bff;--bl:.38;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#070912;--fg:#eef0ff;--muted:#8d93b6;--card:rgba(255,255,255,.075);--card2:rgba(255,255,255,.025);--line:rgba(255,255,255,.1);--hi:rgba(255,255,255,.2);--sh:rgba(0,0,0,.65);--solid:rgba(24,27,44,.94);--a:#38bdf8;--b:#8b7bff;--bl:.38;color-scheme:dark}
+:root[data-gold]{--a:#ffc94d;--b:#f59e0b;--c:#fb7185}
+html{scroll-padding-top:env(safe-area-inset-top,0px);background:var(--bg)}
+body{margin:0;min-height:100vh;background:var(--bg);color:var(--fg);font-family:"Prompt","Sukhumvit Set","Noto Sans Thai",-apple-system,system-ui,"Segoe UI",Roboto,sans-serif;position:relative;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+.bg{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.bl{position:absolute;width:72vmax;height:72vmax;border-radius:50%;opacity:var(--bl);animation:dr 26s ease-in-out infinite alternate;transition:opacity .6s}
+.b1{left:-28vmax;top:-34vmax;background:radial-gradient(circle,var(--a),transparent 62%);translate:calc(var(--gx,0)*14px) calc(var(--gy,0)*10px)}
+.b2{right:-34vmax;top:12vh;background:radial-gradient(circle,var(--b),transparent 62%);animation-delay:-9s;translate:calc(var(--gx,0)*-18px) calc(var(--gy,0)*12px)}
+.b3{left:0;bottom:-46vmax;background:radial-gradient(circle,var(--c),transparent 62%);animation-delay:-17s;translate:calc(var(--gx,0)*10px) calc(var(--gy,0)*-14px)}
+@keyframes dr{to{transform:translate(6vmax,4vmax) scale(1.12)}}
+.wrap{position:relative;z-index:1;max-width:540px;margin:0 auto;padding:24px 18px 56px}
+.hd{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;padding:6px 4px 0}
+.cap{font-size:13px;color:var(--muted);margin-bottom:2px}
+h1{margin:0;font-size:clamp(32px,9.5vw,40px);line-height:1.15;font-weight:800;letter-spacing:.01em;background:linear-gradient(100deg,var(--a),var(--b));-webkit-background-clip:text;background-clip:text;color:transparent}
+.mode{flex:none;width:40px;height:40px;padding:0;border-radius:50%;border:1px solid var(--line);background:linear-gradient(160deg,var(--card),var(--card2));color:var(--fg);display:grid;place-items:center;cursor:pointer;box-shadow:inset 0 1px 0 var(--hi);-webkit-tap-highlight-color:transparent}
+.mode svg{width:18px;height:18px;stroke:currentColor;stroke-width:2;fill:none}
+.panel,.glass,.search{background:linear-gradient(160deg,var(--card),var(--card2));border:1px solid var(--line);box-shadow:0 22px 44px -26px var(--sh),inset 0 1px 0 var(--hi);-webkit-backdrop-filter:blur(22px) saturate(160%);backdrop-filter:blur(22px) saturate(160%)}
+.panel{position:relative;overflow:hidden;margin:18px 0 18px;padding:24px 16px 18px;border-radius:30px;text-align:center;transform:perspective(1000px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .7s cubic-bezier(.2,.9,.2,1)}
+.panel.hot{transition:transform .15s linear}
+.panel::before,.glass::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at var(--mx,50%) var(--my,0%),rgba(255,255,255,.26),transparent 55%);opacity:.5;transition:opacity .3s}
+.sc{display:flex;align-items:baseline;justify-content:center;font-size:clamp(54px,17vw,76px);font-weight:300;line-height:1;letter-spacing:-.02em}
+.sl{display:flex}
+.sl:last-child{font-size:.34em;font-weight:600;color:var(--a);margin-left:.6em}
+.sc>i:nth-child(4){display:none}
+.d{display:block;width:.6em;text-align:center;font-variant-numeric:tabular-nums;text-shadow:0 0 30px rgba(120,150,255,.35);text-shadow:0 0 40px color-mix(in srgb,var(--a) 45%,transparent)}
+.sl:last-child .d{text-shadow:none}
+.d.f{animation:roll .45s cubic-bezier(.2,.8,.2,1)}
+@keyframes roll{from{opacity:.1;transform:translateY(-.14em)}}
+.sep{font-style:normal;font-weight:300;color:var(--a);margin:0 .02em;animation:blink 1s steps(2) infinite}
+@keyframes blink{50%{opacity:.25}}
+.gr{margin-top:14px;font-size:20px;font-weight:700;line-height:1.35}
+.panel p{margin:4px 8px 0;font-size:14px;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:14px}
+.chip{padding:6px 12px;border-radius:99px;border:1px solid var(--line);background:linear-gradient(160deg,var(--card),var(--card2));font-size:12.5px;font-weight:600}
+.chip.gold{border-color:var(--a);border-color:color-mix(in srgb,var(--a) 70%,transparent);box-shadow:0 0 20px -6px var(--a)}
+.search{display:flex;align-items:center;gap:8px;height:44px;padding:0 16px;border-radius:99px;color:var(--muted)}
+.search svg{width:17px;height:17px;flex:none;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+.search input{flex:1;min-width:0;border:0;outline:0;background:none;color:var(--fg);font:inherit;font-size:16px}
+.sec{display:flex;align-items:center;gap:10px;margin:28px 6px 12px;font-size:12.5px;font-weight:600;letter-spacing:.06em;color:var(--muted)}
+.sec::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}
+.card{position:relative;display:flex;flex-direction:column;justify-content:space-between;gap:22px;min-height:144px;padding:16px;border-radius:24px;color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent;transform-style:preserve-3d;transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateY(var(--ty,0px));transition:transform .7s cubic-bezier(.2,.9,.2,1);animation:in .7s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i)*60ms)}
+.card.hot{--ty:-3px;transition:transform .15s linear}
+.card:active{transform:perspective(900px) scale(.97)}
+@keyframes in{from{opacity:0;transform:translateY(16px) scale(.98)}}
+.glass{position:absolute;inset:0;border-radius:inherit;overflow:hidden}
+.glass::before{opacity:0}
+.hot .glass::before{opacity:1}
+.glass::after{content:"";position:absolute;left:-30px;top:-30px;width:120px;height:120px;border-radius:50%;background:var(--c1);filter:blur(36px);opacity:.3}
+.row{display:flex;justify-content:space-between;align-items:flex-start;transform-style:preserve-3d}
+.ico{width:50px;height:50px;border-radius:15px;display:grid;place-items:center;background:linear-gradient(145deg,var(--c1),var(--c2));box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 10px 20px -8px var(--c2);transform:translateZ(22px)}
+.ico svg{width:26px;height:26px;fill:none;stroke:#fff;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.go{width:18px;height:18px;margin:2px 2px 0 0;fill:none;stroke:var(--muted);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;opacity:.6;transition:transform .3s,opacity .3s}
+.hot .go{opacity:1;transform:translate(2px,-2px)}
+.txt{transform:translateZ(12px)}
+.lbl{display:block;font-size:16px;font-weight:600;line-height:1.25;word-break:break-word}
+.tag{display:inline-block;margin-top:7px;padding:2px 8px;border-radius:99px;border:1px solid var(--line);font:600 9.5px ui-monospace,Menlo,Consolas,monospace;letter-spacing:.1em;color:var(--muted)}
+.tag.lan{color:#fff;background:#ff453a;border-color:transparent}
+.empty{display:none;margin:40px 0;text-align:center;color:var(--muted)}
+.note{margin:26px 0 0;font-size:12px;color:var(--muted);text-align:center}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{min-height:100dvh}
+.wrap{padding-left:max(18px,env(safe-area-inset-left));padding-right:max(18px,env(safe-area-inset-right))}
+.mode{width:44px;height:44px}
+.card,.mode,.chip{touch-action:manipulation}
+.card:focus-visible,.mode:focus-visible{outline:2px solid var(--a);outline-offset:3px}
+.grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.sc{font-size:clamp(46px,min(17vw,13vh),76px)}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.panel,.glass,.search,.mode,.chip{background:var(--solid)}}
+@media (max-width:359px){
+  .wrap{padding-left:max(12px,env(safe-area-inset-left));padding-right:max(12px,env(safe-area-inset-right))}
+  .panel{padding:20px 10px 14px}.gr{font-size:18px}.chip{font-size:12px}
+  .card{min-height:128px;padding:12px;gap:16px}.ico{width:42px;height:42px;border-radius:13px}.ico svg{width:22px;height:22px}.lbl{font-size:14.5px}
+}
+@media (min-width:600px){.wrap{max-width:720px}.grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}}
+@media (min-width:760px){
+  .wrap{max-width:1120px;padding-top:36px}
+  .layout{display:grid;grid-template-columns:minmax(300px,380px) minmax(0,1fr);gap:28px;align-items:start}
+  .side{position:sticky;top:max(24px,env(safe-area-inset-top))}
+  .main{padding-top:14px}
+  h1{font-size:44px}
+}
+@media (min-width:760px) and (max-height:700px){.side{position:static}}
+@media (min-width:1200px){.card{min-height:156px}}
+@media (min-width:1600px){.wrap{max-width:1320px}}
+@media (max-height:520px) and (orientation:landscape){
+  .wrap{padding-top:14px;padding-bottom:24px}
+  .panel{margin:10px 0;padding:14px 12px 12px}.gr{margin-top:8px;font-size:17px}.chips{margin-top:8px}
+  .sc{font-size:clamp(40px,min(14vw,15vh),64px)}
+}
+</style>
+</head>
+<body>
+<div class="bg"><div class="bl b1"></div><div class="bl b2"></div><div class="bl b3"></div></div>
+<div class="wrap"><div class="layout"><div class="side">
+  <div class="hd">
+    <div><div class="cap" id="date"></div><h1>QA RM&amp;PK</h1></div>
+    <button class="mode" id="mode" aria-label="สลับธีม"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3v18a9 9 0 0 0 0-18z" fill="currentColor"/></svg></button>
+  </div>
+  <div class="panel">
+    <div class="sc" id="sc"></div>
+    <div class="gr" id="gr"></div><p id="sub"></p>
+    <div class="chips" id="chips"></div>
+  </div>
+  </div><div class="main">
+  <label class="search">
+    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+    <input id="q" type="search" placeholder="ค้นหา" autocomplete="off">
+  </label>
+  <section>
+    <div class="sec">ระบบงาน</div>
+    <div class="grid">
+      <a class="card" style="--i:1;--c1:#38bdf8;--c2:#2563eb" data-k="queue คิว" href="https://app.cpram.co.th/queuevendor/" target="_blank" rel="noopener"><span class="glass"></span><div class="row"><span class="ico"><svg viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r=".7"/><circle cx="4.5" cy="12" r=".7"/><circle cx="4.5" cy="18" r=".7"/></svg></span><svg class="go" viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></div><div class="txt"><b class="lbl">Queue</b><i class="tag">WEB</i></div></a>
+      <a class="card" style="--i:2;--c1:#fbbf24;--c2:#f97316" data-k="web time เวลา" href="https://it.cpram.co.th/kittichai/kiosk/setplant" target="_blank" rel="noopener"><span class="glass"></span><div class="row"><span class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><svg class="go" viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></div><div class="txt"><b class="lbl">Web time</b><i class="tag">WEB</i></div></a>
+      <a class="card" style="--i:3;--c1:#a78bfa;--c2:#7c3aed" data-k="ot โอที" href="http://10.153.1.61/webperson2/default1.aspx" target="_blank" rel="noopener"><span class="glass"></span><div class="row"><span class="ico"><svg viewBox="0 0 24 24"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z"/></svg></span><svg class="go" viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></div><div class="txt"><b class="lbl">OT</b><i class="tag lan">LAN</i></div></a>
+      <a class="card" style="--i:4;--c1:#f472b6;--c2:#c026d3" data-k="rd1" href="https://it.cpram.co.th/RD1/" target="_blank" rel="noopener"><span class="glass"></span><div class="row"><span class="ico"><svg viewBox="0 0 24 24"><path d="M9 3h6M10 3v6l-5 9.5A2 2 0 0 0 6.8 21h10.4a2 2 0 0 0 1.8-2.5L14 9V3"/><path d="M7.5 15h9"/></svg></span><svg class="go" viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></div><div class="txt"><b class="lbl">RD1</b><i class="tag">WEB</i></div></a>
+    </div>
+  </section>
+  <section>
+    <div class="sec">เอกสาร</div>
+    <div class="grid">
+      <a class="card" style="--i:5;--c1:#4ade80;--c2:#16a34a" data-k="green grade reset เกรด" href="https://cpallgroup-my.sharepoint.com/:x:/r/personal/ratimayus_cpram_co_th/_layouts/15/Doc.aspx?sourcedoc=%7B891E0048-86D2-4026-87EF-3C99CBFEBE71%7D&amp;file=%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%95%E0%B8%A3%E0%B8%A7%E0%B8%88%20Reset%201%20lot.xlsx&amp;action=default&amp;mobileredirect=true" target="_blank" rel="noopener"><span class="glass"></span><div class="row"><span class="ico"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8.5 12.5l2.5 2.5 4.5-5"/></svg></span><svg class="go" viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></div><div class="txt"><b class="lbl">Green grade Reset</b><i class="tag">EXCEL</i></div></a>
+      <a class="card" style="--i:6;--c1:#fb7185;--c2:#e11d48" data-k="spac spec pk rm" href="https://cpallgroup-my.sharepoint.com/shared?listurl=https%3A%2F%2Fcpallgroup%2Dmy%2Esharepoint%2Ecom%2Fpersonal%2Frungarunmis%5Fcpram%5Fco%5Fth%2FDocuments&amp;e=5%3Abb7f7904d6844e98a9535982a9965286&amp;sharingv2=true&amp;fromShare=true&amp;at=9&amp;CT=1788663345682&amp;OR=OWA%2DNT%2DMail&amp;SI=NonSentItems&amp;SLSync=F&amp;id=%2Fpersonal%2Frungarunmis%5Fcpram%5Fco%5Fth%2FDocuments%2FSpec%20rm%26pkg%2FSpec%20RM%26PKG%20%28PDF%29&amp;FolderCTID=0x012000FEC61C30ED64214B9FBB50768572A606" target="_blank" rel="noopener"><span class="glass"></span><div class="row"><span class="ico"><svg viewBox="0 0 24 24"><path d="M7 3h7l5 5v12a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg></span><svg class="go" viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></div><div class="txt"><b class="lbl">SPAC PK&amp;RM</b><i class="tag">PDF</i></div></a>
+      <a class="card" style="--i:7;--c1:#fde047;--c2:#f59e0b" data-k="kyt safety ความปลอดภัย" href="https://cpallgroup.sharepoint.com/sites/MST-SafetyModularKYT/Shared%20Documents/Forms/AllItems.aspx?id=%2Fsites%2FMST%2DSafetyModularKYT%2FShared%20Documents%2F2569%20Modular%20Safety%20TTA%20%28Think%20Talk%20Action%29%2F%E0%B8%AA%E0%B9%88%E0%B8%87%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%9A%E0%B9%89%E0%B8%B2%E0%B8%99%20JSA%20%26%20%E0%B8%97%E0%B8%9A%E0%B8%97%E0%B8%A7%E0%B8%99%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%AA%E0%B8%A1%E0%B8%B2%E0%B8%8A%E0%B8%B4%E0%B8%81%20TPD%2F%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%81%E0%B8%B1%E0%B8%99%E0%B8%84%E0%B8%B8%E0%B8%93%E0%B8%A0%E0%B8%B2%E0%B8%9E%E0%B8%9C%E0%B8%B9%E0%B9%89%E0%B8%AA%E0%B9%88%E0%B8%87%E0%B8%A1%E0%B8%AD%E0%B8%9A%20%20Code%20323%2C332%2C343%2F%E0%B8%AA%E0%B8%B3%E0%B8%AB%E0%B8%A3%E0%B8%B1%E0%B8%9A%E0%B8%84%E0%B8%B5%E0%B8%A2%E0%B9%8C%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%9A%E0%B8%B8%E0%B8%84%E0%B8%84%E0%B8%A5&amp;p=true&amp;ga=1" target="_blank" rel="noopener"><span class="glass"></span><div class="row"><span class="ico"><svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 4.5-3.2 8-8 9-4.8-1-8-4.5-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></span><svg class="go" viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></div><div class="txt"><b class="lbl">KYT</b><i class="tag">SHAREPOINT</i></div></a>
+      <a class="card" style="--i:8;--c1:#2dd4bf;--c2:#0891b2" data-k="rm pkg testing plan แผนตรวจ" href="https://cpallgroup-my.sharepoint.com/:x:/r/personal/ratimayus_cpram_co_th/_layouts/15/Doc.aspx?sourcedoc=%7BE7CAC29C-A8E0-48CA-87C7-7B3DB61598DB%7D&amp;file=TPD%20%E0%B9%81%E0%B8%9C%E0%B8%99%E0%B8%95%E0%B8%A3%E0%B8%A7%E0%B8%88%E0%B9%80%E0%B8%8A%E0%B8%B7%E0%B9%89%E0%B8%AD%202026.xlsx&amp;action=default&amp;mobileredirect=true" target="_blank" rel="noopener"><span class="glass"></span><div class="row"><span class="ico"><svg viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17" rx="2.5"/><path d="M9 4V3h6v1M9 11h6M9 15h4"/></svg></span><svg class="go" viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></div><div class="txt"><b class="lbl">RM &amp; PKG Testing Plan</b><i class="tag">EXCEL</i></div></a>
+    </div>
+  </section>
+  <div class="empty" id="empty">ไม่พบทางลัด</div>
+  <p class="note">LAN = ใช้ได้เฉพาะในเครือข่ายบริษัท</p>
+</div></div></div>
+<script>
+(function(){
+  var R=document.documentElement,$=function(i){return document.getElementById(i)};
+  try{var s=localStorage.getItem("th");if(s)R.dataset.theme=s}catch(e){}
+  $("mode").onclick=function(){
+    var d=R.dataset.theme?R.dataset.theme==="dark":matchMedia("(prefers-color-scheme:dark)").matches,n=d?"light":"dark";
+    R.dataset.theme=n;try{localStorage.setItem("th",n)}catch(e){}
+  };
+  function set(x,y){R.style.setProperty("--gx",x.toFixed(2));R.style.setProperty("--gy",y.toFixed(2))}
+  function cl(v){return Math.max(-1,Math.min(1,v))}
+  addEventListener("deviceorientation",function(e){if(e.gamma!=null&&e.beta!=null)set(cl(e.gamma/45),cl((e.beta-50)/45))});
+  addEventListener("pointermove",function(e){if(e.pointerType==="mouse")set((e.clientX/innerWidth-.5)*2,(e.clientY/innerHeight-.5)*2)});
+  var cards=[].slice.call(document.querySelectorAll(".card"));
+  [].forEach.call(document.querySelectorAll(".card,.panel"),function(c){
+    var m=c.classList.contains("panel")?2.5:6;
+    c.addEventListener("pointermove",function(e){
+      var r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height,p=c.style;
+      p.setProperty("--ry",((x-.5)*2*m).toFixed(1)+"deg");p.setProperty("--rx",((.5-y)*2*m).toFixed(1)+"deg");
+      p.setProperty("--mx",(x*100).toFixed(0)+"%");p.setProperty("--my",(y*100).toFixed(0)+"%");c.classList.add("hot");
+    });
+    ["pointerleave","pointercancel","pointerup"].forEach(function(ev){c.addEventListener(ev,function(){
+      c.classList.remove("hot");["--rx","--ry","--mx","--my"].forEach(function(k){c.style.removeProperty(k)});
+    })});
+  });
+  var q=$("q"),secs=[].slice.call(document.querySelectorAll("section"));
+  q.addEventListener("input",function(){
+    var s=q.value.trim().toLowerCase(),any=false;
+    cards.forEach(function(c){var h=!s||(c.dataset.k+" "+c.textContent).toLowerCase().indexOf(s)>-1;c.style.display=h?"":"none";if(h)any=true});
+    secs.forEach(function(c){c.style.display=[].some.call(c.querySelectorAll(".card"),function(t){return t.style.display!=="none"})?"":"none"});
+    $("empty").style.display=any?"none":"block";
+  });
+})();
+</script>
+<script>
+(function(){
+  var R=document.documentElement,$=function(i){return document.getElementById(i)};
+  function p(n){return n<10?"0"+n:""+n}
+  function key(d){return d.getFullYear()+"-"+p(d.getMonth()+1)+"-"+p(d.getDate())}
+  function day(d,n){return new Date(d.getFullYear(),d.getMonth(),d.getDate()+n)}
+  var DN=["อาทิตย์","จันทร์","อังคาร","พุธ","พฤหัสบดี","ศุกร์","เสาร์"],DS=["อา.","จ.","อ.","พ.","พฤ.","ศ.","ส."],
+  MN=["มกราคม","กุมภาพันธ์","มีนาคม","เมษายน","พฤษภาคม","มิถุนายน","กรกฎาคม","สิงหาคม","กันยายน","ตุลาคม","พฤศจิกายน","ธันวาคม"],
+  MS=["ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค."];
+  /* วันพระ: พ.ศ. 2569 (ปลายปี) มีข้างขึ้น/แรม, พ.ศ. 2570 มีเฉพาะวันที่ */
+  var WP={"2026-10-26":"ขึ้น 15 ค่ำ เดือน 11","2026-11-03":"แรม 8 ค่ำ เดือน 11","2026-11-09":"แรม 14 ค่ำ เดือน 11","2026-11-17":"ขึ้น 8 ค่ำ เดือน 12","2026-11-24":"ขึ้น 15 ค่ำ เดือน 12","2026-12-02":"แรม 8 ค่ำ เดือน 12","2026-12-09":"แรม 15 ค่ำ เดือน 12","2026-12-17":"ขึ้น 8 ค่ำ เดือน 1","2026-12-24":"ขึ้น 15 ค่ำ เดือน 1"};
+  var Y={1:[1,7,15,22,30],2:[6,14,21],3:[1,7,15,22,30],4:[6,14,21,29],5:[5,13,20,28],6:[4,12,19,27],7:[3,11,18,19,26],8:[2,10,17,25,31],9:[8,15,23,30],10:[8,15,23,29],11:[6,13,21,28],12:[6,13,21,27]};
+  for(var m in Y)Y[m].forEach(function(d){WP["2027-"+p(m)+"-"+p(d)]=""});
+  var BF={"2026-10-26":"วันออกพรรษา","2026-11-24":"วันลอยกระทง","2027-02-21":"วันมาฆบูชา","2027-05-20":"วันวิสาขบูชา","2027-07-18":"วันอาสาฬหบูชา","2027-07-19":"วันเข้าพรรษา","2027-10-15":"วันออกพรรษา","2027-11-13":"วันลอยกระทง"};
+  /* วันหยุด (อิงวันหยุดธนาคาร/เอกชน) รวมวันหยุดชดเชย */
+  var HS={};["2026-12-05","2026-12-07","2026-12-10","2026-12-31","2027-01-01","2027-02-21","2027-02-22","2027-04-06","2027-04-13","2027-04-14","2027-04-15","2027-05-01","2027-05-03","2027-05-04","2027-05-20","2027-06-03","2027-07-18","2027-07-19","2027-07-28","2027-08-12","2027-10-13","2027-10-23","2027-10-25","2027-12-05","2027-12-06","2027-12-10","2027-12-31"].forEach(function(k){HS[k]=1});
+  var SP=[[1,1,"วันขึ้นปีใหม่","🎉","สวัสดีปีใหม่","ขอให้ปีนี้มีแต่สิ่งดีๆ สุขภาพแข็งแรง"],
+  [2,14,"วาเลนไทน์","💘","Happy Valentine’s Day","ขอให้วันนี้เต็มไปด้วยความรัก"],
+  [4,6,"วันจักรี","","วันจักรี","ขอให้เป็นวันที่ดี พักผ่อนให้เต็มที่นะ"],
+  [4,13,"วันสงกรานต์","💦","สุขสันต์วันสงกรานต์","สาดน้ำให้สนุก เดินทางปลอดภัยนะ"],
+  [5,1,"วันแรงงาน","","วันแรงงานแห่งชาติ","ขอบคุณทุกแรงกายแรงใจ"],
+  [5,4,"วันฉัตรมงคล","","วันฉัตรมงคล","ขอให้เป็นวันที่ดี พักผ่อนให้เต็มที่นะ"],
+  [6,3,"วันเฉลิมพระชนมพรรษาพระราชินี","","วันเฉลิมพระชนมพรรษา พระบรมราชินี","ขอพระองค์ทรงพระเจริญ"],
+  [7,28,"วันเฉลิมพระชนมพรรษาในหลวง","","วันเฉลิมพระชนมพรรษา พระบาทสมเด็จพระเจ้าอยู่หัว","ขอพระองค์ทรงพระเจริญ"],
+  [8,12,"วันแม่","💙","สุขสันต์วันแม่แห่งชาติ","อย่าลืมกอดหรือโทรหาแม่นะ"],
+  [10,13,"วันนวมินทรมหาราช","","วันนวมินทรมหาราช","น้อมรำลึกในพระมหากรุณาธิคุณ"],
+  [10,23,"วันปิยมหาราช","","วันปิยมหาราช","น้อมรำลึกในพระมหากรุณาธิคุณ"],
+  [12,5,"วันพ่อ","💛","สุขสันต์วันพ่อแห่งชาติ","ขอให้พ่อๆ ทุกคนสุขภาพแข็งแรง"],
+  [12,10,"วันรัฐธรรมนูญ","","วันรัฐธรรมนูญ","ขอให้เป็นวันที่ดี พักผ่อนให้เต็มที่นะ"],
+  [12,25,"คริสต์มาส","🎄","Merry Christmas","ขอให้เป็นวันที่อบอุ่นและมีความสุข"],
+  [12,31,"วันสิ้นปี","🎆","สุขสันต์วันสิ้นปี","ขอบคุณสำหรับปีที่ผ่านมา เตรียมต้อนรับปีใหม่"]];
+  function wp(d){var k=key(d);return k in WP?WP[k]:null}
+  function special(d){
+    var k=key(d),m=d.getMonth()+1,dd=d.getDate(),b=BF[k];
+    if(b)return b==="วันลอยกระทง"?{n:b,e:"🪔",t:"สุขสันต์วันลอยกระทง",s:"ขอขมาพระแม่คงคา ลอยทุกข์ลอยโศกไปกับสายน้ำ"}:{n:b,e:"🙏",t:b,s:"ขอให้ใจสงบเป็นสุข ทำบุญตักบาตรนะ"};
+    if(k==="2027-02-06")return{n:"วันตรุษจีน",e:"🧧",t:"สุขสันต์วันตรุษจีน",s:"ซินเจียยู่อี่ ซินนี้ฮวงไช้"};
+    if(m===4&&dd>13&&dd<=15)dd=13;
+    for(var i=0;i<SP.length;i++){var x=SP[i];if(x[0]===m&&x[1]===dd)return{n:x[2],e:x[3],t:x[4],s:x[5]}}
+    return null;
+  }
+  var BD=[[4,11.5,"สวัสดีตอนเช้า",["เริ่มวันใหม่ให้สดใสนะ","ขอให้วันนี้ราบรื่นทุกคิว","จิบกาแฟสักแก้ว แล้วลุยกันเลย","วันนี้สู้ๆ นะ"]],
+  [11.5,13,"ได้เวลาพักเที่ยง",["พักกินข้าวก่อนนะ อิ่มแล้วค่อยลุยต่อ","วางงานสักครู่ เติมพลังกันหน่อย","วันนี้กินอะไรอร่อยๆ ดี"]],
+  [13,17,"สวัสดีตอนบ่าย",["ง่วงๆ ลุกยืดเส้นยืดสายหน่อยไหม","ดื่มน้ำเยอะๆ นะ","อีกนิดเดียวก็ถึงเวลาเลิกงานแล้ว"]],
+  [17,20,"สวัสดีตอนเย็น",["เลิกงานแล้ว เดินทางปลอดภัยนะ","วันนี้ทำดีมากแล้ว","ได้เวลาพักผ่อนแล้ว"]],
+  [20,22,"สวัสดีตอนค่ำ",["ผ่อนคลายให้เต็มที่นะ","ดูแลสุขภาพด้วยนะ"]],
+  [22,28,"ดึกแล้วนะ",["พักผ่อนบ้างนะ ฝันดี","อย่าอดนอนนะ ร่างกายสำคัญ"]]];
+  function info(now){
+    var t=now.getHours()+now.getMinutes()/60,w=now.getDay(),td=day(now,0),bi=0,i;
+    if(t<4)t+=24;
+    for(i=0;i<BD.length;i++)if(t>=BD[i][0]&&t<BD[i][1]){bi=i;break}
+    var b=BD[bi],seed=Math.floor((td-new Date(td.getFullYear(),0,0))/864e5)+td.getFullYear()+bi*3,
+        title=b[2],sub=b[3][seed%b[3].length],sp=special(td),wl=wp(td),isH=!!HS[key(td)];
+    if(bi!==5){
+      if(w===1&&t<11.5)sub="เริ่มสัปดาห์ใหม่แล้ว สู้ๆ นะ";
+      if(w===5&&t>=13&&t<17)sub="ศุกร์แล้ว! อีกนิดเดียวก็ถึงวันหยุด";
+      if(w===5&&t>=17)sub="เย็นวันศุกร์แล้ว ขอให้สุดสัปดาห์นี้สนุกนะ";
+      if(w===6||w===0)sub=(w===0&&t>=17)?"พรุ่งนี้เริ่มสัปดาห์ใหม่ พักให้เต็มที่นะ":"วันหยุดสุดสัปดาห์ พักผ่อนให้เต็มที่นะ";
+      if(isH&&w>0&&w<6)sub="วันนี้วันหยุด พักผ่อนให้เต็มที่นะ";
+    }
+    if(wl!==null)sub="วันนี้วันพระ"+(wl?" · "+wl:"")+" ทำบุญตักบาตรนะ 🙏";
+    if(sp){title=(sp.e?sp.t+" "+sp.e:sp.t);sub=sp.s}
+    return{title:title,sub:sub,gold:wl!==null};
+  }
+  function off(d){var w=d.getDay();return w===0||w===6||!!HS[key(d)]}
+  function chkRun(run,t){
+    if(run.length<3||!run.some(function(d){return HS[key(d)]}))return null;
+    var e=run[run.length-1];return e<t?null:{a:run[0],b:e,n:run.length};
+  }
+  function longHol(td){
+    var run=[],r,i,d;
+    for(i=-7;i<430;i++){d=day(td,i);
+      if(off(d))run.push(d);else{r=chkRun(run,td);if(r)return r;run=[]}
+    }
+    return null;
+  }
+  function rng(a,b){return a.getMonth()===b.getMonth()?a.getDate()+"–"+b.getDate()+" "+MS[a.getMonth()]:a.getDate()+" "+MS[a.getMonth()]+"–"+b.getDate()+" "+MS[b.getMonth()]}
+  function chips(now){
+    var td=day(now,0),o=[],wd=null,n,d,l,f,s;
+    l=wp(td);
+    if(l!==null){f=BF[key(td)];o.push(["gold","🙏 วันนี้วันพระ"+(f?" · "+f:l?" · "+l:"")]);wd=key(td)}
+    else for(n=1;n<=45;n++){d=day(td,n);l=wp(d);
+      if(l!==null){f=BF[key(d)];
+        o.push(["gold",n===1?"🙏 พรุ่งนี้วันพระ"+(f?" · "+f:l?" · "+l:""):"🙏 วันพระถัดไป อีก "+n+" วัน · "+DS[d.getDay()]+" "+d.getDate()+" "+MS[d.getMonth()]]);
+        wd=key(d);break}}
+    var h=longHol(td);
+    if(h){
+      if(h.a<=td){var left=Math.round((h.b-td)/864e5);o.push(["","🏖️ กำลังหยุดยาว · "+(left?"เหลืออีก "+left+" วัน":"วันสุดท้ายแล้ว")])}
+      else{n=Math.round((h.a-td)/864e5);o.push(["","🏖️ "+(n===1?"พรุ่งนี้เริ่มหยุดยาว":"อีก "+n+" วันถึงวันหยุดยาว")+" · "+rng(h.a,h.b)+" ("+h.n+" วัน)"])}
+    }
+    for(n=1;n<=60;n++){d=day(td,n);if(key(d)===wd)continue;s=special(d);
+      if(s){o.push(["",(s.e||"📅")+" "+(n===1?"พรุ่งนี้"+s.n:"อีก "+n+" วันถึง"+s.n)]);break}}
+    return o;
+  }
+  function render(now){
+    var f=info(now);
+    $("gr").textContent=f.title;$("sub").textContent=f.sub;
+    if(f.gold)R.setAttribute("data-gold","");else R.removeAttribute("data-gold");
+    $("date").textContent="วัน"+DN[now.getDay()]+"ที่ "+now.getDate()+" "+MN[now.getMonth()]+" "+(now.getFullYear()+543);
+    $("chips").innerHTML=chips(now).map(function(c){return `<span class="chip ${c[0]}">${c[1]}</span>`}).join("");
+  }
+  var sc=$("sc"),ds=[],prev="",last="";
+  for(var i=0;i<3;i++){
+    var sl=document.createElement("div");sl.className="sl";
+    for(var k=0;k<2;k++){var e=document.createElement("span");e.className="d";sl.appendChild(e);ds.push(e)}
+    sc.appendChild(sl);
+    if(i<2){var c=document.createElement("i");c.className="sep";c.textContent=":";sc.appendChild(c)}
+  }
+  function tick(){
+    var n=new Date(),s=p(n.getHours())+p(n.getMinutes())+p(n.getSeconds()),i;
+    for(i=0;i<6;i++)if(s[i]!==prev[i]){
+      ds[i].textContent=s[i];
+      if(prev){ds[i].classList.remove("f");void ds[i].offsetWidth;ds[i].classList.add("f")}
+    }
+    prev=s;
+    var mk=key(n)+s.slice(0,4);
+    if(mk!==last){last=mk;render(n)}
+  }
+  tick();setInterval(tick,1000);
+})();
+</script>
+</body>
+</html>
